@@ -195,7 +195,7 @@ def rank_header():
             print("+")
 
 def print_row(rank, file, sq_color = ""):
-    if (rank + file)%2 == 0:
+    if dark_square():
         sq_color ="dark"
     else:
         sq_color = "light"
@@ -205,6 +205,9 @@ def print_row(rank, file, sq_color = ""):
     else:
         print("|      ", end = "")
     return file
+
+def dark_square(rank, file):
+    return (rank + file) % 2 == 0
 
 
 def print_board(rank, partialFEN, file=1):
@@ -219,7 +222,7 @@ def print_board(rank, partialFEN, file=1):
                     file += 1
             else:
                 #need to modify now that sq_color has been modified w/ print row function
-                Piece(char).display(sq_color)
+                Piece(char).display("dark" if dark_square(rank, file) else "light")
                 file += 1
             if file == 7:
                 print("|")
