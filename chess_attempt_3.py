@@ -63,7 +63,7 @@ class Piece:
         if sq_color == 'dark' and self.color == 'black':
             return re.sub(' ', '#', self.visual)
             print(self.visual)
-        elif sq_color != 'black' and self.color != 'black':
+        elif sq_color != 'dark' and self.color != 'black':
             return re.sub('#', ' ', self.visual)
             print(self.visual)
         else:
@@ -194,21 +194,22 @@ def rank_header():
         if i == 8:
             print("+")
 
-def print_row(rank, file, sq_color = ""):
-    if dark_square():
-        sq_color ="dark"
-    else:
-        sq_color = "light"
-
+def print_row(rank, file, sq_color=None):
+    if sq_color is None: 
+        sq_color = sq_color(rank, file)
     if sq_color == "dark":
         print("|######", end ="")
     else:
         print("|      ", end = "")
     return file
 
-def dark_square(rank, file):
-    return (rank + file) % 2 == 0
-
+def sq_color(rank: str, file: str) -> str:
+    """
+    rank(str): The rank for the given piece
+    file(str): The file for the given piece
+    return(str): 'dark' or 'light'
+    """
+    return "dark" if (rank + file) % 2 == 0 else "light"
 
 def print_board(rank, partialFEN, file=1):
     for x in range(6):
@@ -222,7 +223,7 @@ def print_board(rank, partialFEN, file=1):
                     file += 1
             else:
                 #need to modify now that sq_color has been modified w/ print row function
-                Piece(char).display("dark" if dark_square(rank, file) else "light")
+                Piece(char).display(sq_color(rank,file))
                 file += 1
             if file == 7:
                 print("|")
