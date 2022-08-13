@@ -204,7 +204,7 @@ def print_row(rank, file, sq_color=None):
     return file
 
 def sq_color(rank: str, file: str) -> str:
-    """
+    """ Method to determine the color of a given square
     rank(str): The rank for the given piece
     file(str): The file for the given piece
     return(str): 'dark' or 'light'
