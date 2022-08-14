@@ -122,12 +122,10 @@ class Piece:
 
 #Rank Header: +------+------...
 def rank_header():
-    i = 0
-    while(i < 8):
+    for i in range(8):
         print_inline("+------")
-        i = i + 1
-        if i == 8:
-            print("+")
+    print('+')
+
 
 def print_square(rank, file):
     color = sq_color(rank, file)
@@ -167,18 +165,11 @@ def print_row(rank, partialFEN):
 #create function "loadPositionFromFen"
 #FEN starting position: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
 #Remove '/' and appropriate number of blank spaces, try to handle the rest using the piece class
-fen = "r7/8/8/8/8/8/8/8/"
+fen = "r7/8/8/8/8/8/8/8"
 def load_position_from_FEN(fen):
-    rank = 8
-    partialFEN = ""
     rank_header()
-    for char in fen:
-        if char == '/':
-            print_row(rank, partialFEN)
-            partialFEN = ""
-            rank = rank - 1
-        else:
-            partialFEN = partialFEN + char
+    for idx, partialFEN in enumerate(fen.split('/')):
+        print_row(8 - idx, partialFEN)
 
 load_position_from_FEN(fen)           
         
