@@ -1,4 +1,6 @@
+from operator import is_
 from board import Board
+from move_legality import is_legal
 STARTING_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
 
 class Game:
@@ -42,7 +44,13 @@ class Game:
         self.turn += 1
 
     def __player_turn(self):
-        pass
+        piece_start = input('Enter the Rank and File of the Piece:')
+        piece_stop = input('Enter the Rank and File of where you would like the piece to go: ')
+        if is_legal(piece_start, piece_stop, self.board.boardFEN): #true pass to board.update_board
+            pass
+        else:
+            print('There was an issue with that selection, please try again.')
+            self.__player_turn()
     
     def __ai_turn(self):
         pass

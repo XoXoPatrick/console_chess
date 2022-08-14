@@ -42,3 +42,6 @@ class Board:
             print("|")
 
         self.__rank_header()
+
+    def update_board(piece_start: str, piece_stop: str):
+        pass
