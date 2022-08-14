@@ -41,7 +41,6 @@ BLANK_WHITE_SQUARE = ' ' * SQUARE_WIDTH
 DARK_SQUARE_SYMBOL = '%'
 BLANK_BLACK_SQUARE = DARK_SQUARE_SYMBOL * SQUARE_WIDTH
 import re
-import string
 
 #read in from FEN string and print appropriate graphic for appropriate piece
 
@@ -142,6 +141,7 @@ class Piece:
         self.color = color
         self.visual = visual
         self.movements = movements
+
 
 
 #Rank Header: +------+------...
