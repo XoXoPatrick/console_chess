@@ -56,153 +56,88 @@ class Piece:
     def calculate_legal_moves(self):
         legal_moves = []
         for movement in self.movements:
-            if legal: legal_moves.append(movement)
+            if legal(movement): legal_moves.append(movement)
         return legal_moves
 
-    def display(self, sq_color: str):
+    def legal(self, movement):
+        pass
+
+    def display(self, sq_color: str, idx: int) -> str:
         if sq_color == 'dark' and self.color == 'black':
-            return re.sub(' ', '#', self.visual)
-            print(self.visual)
+            print_inline(re.sub(' ', '#', self.visual[idx]))
         elif sq_color != 'dark' and self.color != 'black':
-            return re.sub('#', ' ', self.visual)
-            print(self.visual)
+            print_inline(re.sub('#', ' ', self.visual[idx]))
         else:
-            print(self.visual)
-            return self.visual
+            print_inline(self.visual[idx])
 
 
     def r(self):
         visual = ["      ","      ","[UUU] "," |#|  "," {#}  ","{###} "]
         movements = []
-        self._generate_attributes('Rook', 'r', 'black', visual, movements)
+        self.__generate_attributes('Rook', 'r', 'black', visual, movements)
 
     def R(self):
         visual = ["######","######","[UUU]#","#| |##","#{ }##","{___}#"]
         movements = []
-        self._generate_attributes('Rook', 'R', 'white', visual, movements)
+        self.__generate_attributes('Rook', 'R', 'white', visual, movements)
 
     def n(self):
         visual = ["      "," _/|  ","//#o\ ","||#._)","//##\ ",")###( "]
         movements = []
-        self._generate_attributes('Knight', 'n', 'black', visual, movements)
+        self.__generate_attributes('Knight', 'n', 'black', visual, movements)
 
     def N(self):
         visual = ["######","#_/|##","// o\#","|| ._)","//  \#",")___(#"]
         movements = []
-        self._generate_attributes('Knight', 'K', 'white', visual, movements)
+        self.__generate_attributes('Knight', 'K', 'white', visual, movements)
 
     def b(self):
         visual = ["      ","      "," (^)  "," /#\  "," {#}  ","{###} "]
         movements = []
-        self._generate_attributes('Bishop', 'b', 'black', visual, movements)
+        self.__generate_attributes('Bishop', 'b', 'black', visual, movements)
 
     def B(self):
         visual = ["######","#_/|##","// o\#","|| ._)","//  \#",")___(#"]
         movements = []
-        self._generate_attributes('Bishop', 'B', 'white', visual, movements)
+        self.__generate_attributes('Bishop', 'B', 'white', visual, movements)
 
     def p(self):
         visual = ["      ","      ", "      "," (#)  "," {#}  ","{###} "]
         movements = []
-        self._generate_attributes('Pawn', 'p', 'black', visual, movements)
+        self.__generate_attributes('Pawn', 'p', 'black', visual, movements)
 
     def P(self):
         visual = ["######","######","######","#( )##","#{ }##","{___}#"]
         movements = []
-        self._generate_attributes('Pawn', 'P', 'white', visual, movements)
+        self.__generate_attributes('Pawn', 'P', 'white', visual, movements)
         
 
-    def _generate_attributes(self, name, char, color, visual, movements):
+    def __generate_attributes(self, name, char, color, visual, movements):
         self.name = name
         self.char = char
         self.color = color
         self.visual = visual
         self.movements = movements
 
-class Rook(Piece):
-    def __init__(self, color: str):
-        movements = []
-        if color == "black":
-            c1har = "n"
-            visual = ["      ","      ","[UUU] "," |#|  "," {#}  ","{###} "]
-        else:
-            char = "N"
-            visual = ["######","######","[UUU]#","#| |##","#{ }##","{___}#"]
-        super().__init__("Rook", char, color, visual, movements)
-
-class Knight(Piece):
-    def __init__(self, color: str):
-        movements = []
-        if color == "black":
-            char = "n"
-            visual = ["      ","      "," (^)  "," /#\  "," {#}  ","{###} "]
-        else:
-            char = "N"
-            visual = ["######","#_/|##","// o\#","|| ._)","//  \#",")___(#"]
-        super().__init__("Knight", char, color, visual, movements)
-
-class Bishop(Piece):
-    def __init__(self, color: str):
-        movements = []
-        if color == "black":
-            char = "b"
-            visual = ["      ","      "," (^)  "," /#\  "," {#}  ","{###} "]
-        else:
-            char = "B"
-            visual = ["######", "######", "#(^)##","#/ \##","#{ }##","{___}#"]
-        super().__init__("Bishop", char, color, visual, movements)
-
-class Queen(Piece):
-    def __init__(self, color: str):
-        movements = []
-        if color == "black":
-            char = "q"
-            visual = [" _._  "," (#)  "," /#\  "," |#|  "," {#}  ","{###} "]
-        else:
-            char = "Q"
-            visual = ["#_._##","#( )##","#/ \##","#| |##","#{ }##","{___}#"]
-        super().__init__("Bishop", char, color, visual, movements)
-
-class King(Piece):
-    def __init__(self, color: str):
-        movements = []
-        if color == "black":
-            char = "k"
-            visual = ["##+###","#(#)##","#/#\##","#|#|##","#{#}##","{###}#"]
-        else:
-            char = "K"
-            visual = ["##+###","#( )##","#/ \##","#| |##","#{ }##","{___}#"]
-        super().__init__("Bishop", char, color, visual, movements)
-
-class Pawn(Piece):
-    def __init__(self, color: str):
-        movements = []
-        if color == "black":
-            char = "p"
-            visual = ["      ","      ", "      "," (#)  "," {#}  ","{###} "]
-        else:
-            char = "P"
-            visual = ["######","######","######","#( )##","#{ }##","{___}#"]
-        super().__init__("Bishop", char, color, visual, movements)
 
 #Rank Header: +------+------...
 def rank_header():
     i = 0
     while(i < 8):
-        print("+------", end = "")
+        print_inline("+------")
         i = i + 1
         if i == 8:
             print("+")
 
-def print_row(rank, file, color=None):
-    if color is None: 
-        color = sq_color(rank, file)
+def print_square(rank, file):
+    color = sq_color(rank, file)
     if color == "dark":
-        print("|######", end ="")
+        print_inline("|######")
     else:
-        print("|      ", end = "")
-    file += 1
-    return file
+        print_inline("|      ")
+
+def print_inline(line):
+    print(line, end = "")
 
 def sq_color(rank: str, file: str) -> str:
     """ Method to determine the color of a given square
@@ -212,20 +147,18 @@ def sq_color(rank: str, file: str) -> str:
     """
     return "dark" if (rank + file) % 2 == 0 else "light"
 
-def print_board(rank, partialFEN, file=1):
+def print_row(rank, partialFEN):
+    file = 1
     for x in range(6):
         for char in partialFEN:
             if char.isdigit():
                 for y in range(int(char)):
-                    print_row(rank, file)
+                    print_square(rank, file)
                     file += 1
-                if file == 7:
-                    pass
             else:
-                Piece(char).display(sq_color(rank,file))
-            if file == 7:
-                print("|")
-                file = 1
+                Piece(char).display(sq_color(rank, file), x)
+                file += 1
+        print("|")
 
     rank_header()
 
@@ -234,14 +167,14 @@ def print_board(rank, partialFEN, file=1):
 #create function "loadPositionFromFen"
 #FEN starting position: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
 #Remove '/' and appropriate number of blank spaces, try to handle the rest using the piece class
-fen = "8/8/8/8/8/8/8/8/"
+fen = "r7/8/8/8/8/8/8/8/"
 def load_position_from_FEN(fen):
     rank = 8
     partialFEN = ""
     rank_header()
     for char in fen:
         if char == '/':
-            print_board(rank, partialFEN)
+            print_row(rank, partialFEN)
             partialFEN = ""
             rank = rank - 1
         else:
