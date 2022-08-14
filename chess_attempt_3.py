@@ -110,6 +110,26 @@ class Piece:
         visual = ["######","######","######","#( )##","#{ }##","{___}#"]
         movements = []
         self.__generate_attributes('Pawn', 'P', 'white', visual, movements)
+
+    def q(self):
+        visual = [" _._  "," (#)  "," /#\  "," |#|  "," {#}  ","{###} "]
+        movements = []
+        self.__generate_attributes('Pawn', 'p', 'black', visual, movements)
+
+    def Q(self):
+        visual = ["#_._##","#( )##","#/ \##","#| |##","#{ }##","{___}#"]
+        movements = []
+        self.__generate_attributes('Pawn', 'P', 'white', visual, movements)
+
+    def k(self):
+        visual = ["  +   "," (#)  "," /#\  "," |#|  "," {#}  ", "{###} "]
+        movements = []
+        self.__generate_attributes('Pawn', 'p', 'black', visual, movements)
+
+    def K(self):
+        visual = ["##+###","#( )##","#/ \##","#| |##","#{ }##","{___}#"]
+        movements = []
+        self.__generate_attributes('Pawn', 'P', 'white', visual, movements)
         
 
     def __generate_attributes(self, name, char, color, visual, movements):
@@ -165,7 +185,7 @@ def print_row(rank, partialFEN):
 #create function "loadPositionFromFen"
 #FEN starting position: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
 #Remove '/' and appropriate number of blank spaces, try to handle the rest using the piece class
-fen = "r7/8/8/8/8/8/8/8"
+fen = "r7/8/8/8/8/8/8/8/"
 def load_position_from_FEN(fen):
     rank_header()
     for idx, partialFEN in enumerate(fen.split('/')):
