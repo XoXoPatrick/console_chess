@@ -194,13 +194,14 @@ def rank_header():
         if i == 8:
             print("+")
 
-def print_row(rank, file, sq_color=None):
-    if sq_color is None: 
-        sq_color = sq_color(rank, file)
-    if sq_color == "dark":
+def print_row(rank, file, color=None):
+    if color is None: 
+        color = sq_color(rank, file)
+    if color == "dark":
         print("|######", end ="")
     else:
         print("|      ", end = "")
+    file += 1
     return file
 
 def sq_color(rank: str, file: str) -> str:
@@ -217,14 +218,11 @@ def print_board(rank, partialFEN, file=1):
             if char.isdigit():
                 for y in range(int(char)):
                     print_row(rank, file)
+                    file += 1
                 if file == 7:
                     pass
-                else:
-                    file += 1
             else:
-                #need to modify now that sq_color has been modified w/ print row function
                 Piece(char).display(sq_color(rank,file))
-                file += 1
             if file == 7:
                 print("|")
                 file = 1
