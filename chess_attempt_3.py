@@ -36,6 +36,10 @@
 
 #Generate Board for the computer as a 64 number string
 board = [64]
+SQUARE_WIDTH = 9
+BLANK_WHITE_SQUARE = ' ' * SQUARE_WIDTH
+DARK_SQUARE_SYMBOL = '%'
+BLANK_BLACK_SQUARE = DARK_SQUARE_SYMBOL * SQUARE_WIDTH
 import re
 import string
 
@@ -64,70 +68,70 @@ class Piece:
 
     def display(self, sq_color: str, idx: int) -> str:
         if sq_color == 'dark' and self.color == 'black':
-            print_inline(re.sub(' ', '#', self.visual[idx]))
+            print_inline(re.sub(' ', DARK_SQUARE_SYMBOL, self.visual[idx]))
         elif sq_color != 'dark' and self.color != 'black':
-            print_inline(re.sub('#', ' ', self.visual[idx]))
+            print_inline(re.sub(DARK_SQUARE_SYMBOL, ' ', self.visual[idx]))
         else:
             print_inline(self.visual[idx])
 
 
     def r(self):
-        visual = ["      ","      ","[UUU] "," |#|  "," {#}  ","{###} "]
+        visual = [BLANK_WHITE_SQUARE, BLANK_WHITE_SQUARE,"  [UUU]  ","   |#|   ","   {#}   ","  {###}  "]
         movements = []
         self.__generate_attributes('Rook', 'r', 'black', visual, movements)
 
     def R(self):
-        visual = ["######","######","[UUU]#","#| |##","#{ }##","{___}#"]
+        visual = [BLANK_BLACK_SQUARE,BLANK_BLACK_SQUARE,"%%[UUU]%%","%%%| |%%%","%%%{ }%%%","%%{___}%%"]
         movements = []
         self.__generate_attributes('Rook', 'R', 'white', visual, movements)
 
     def n(self):
-        visual = ["      "," _/|  ","//#o\ ","||#._)","//##\ ",")###( "]
+        visual = [ BLANK_WHITE_SQUARE,"   _/|   ","  //#o\  ","  ||#._) ","  //##\  ","  )###(  "]
         movements = []
         self.__generate_attributes('Knight', 'n', 'black', visual, movements)
 
     def N(self):
-        visual = ["######","#_/|##","// o\#","|| ._)","//  \#",")___(#"]
+        visual = [BLANK_BLACK_SQUARE,"%%%_/|%%%","%%// o\%%","%%|| ._)%","%%//  \%%","%%)___(%%"]
         movements = []
         self.__generate_attributes('Knight', 'K', 'white', visual, movements)
 
     def b(self):
-        visual = ["      ","      "," (^)  "," /#\  "," {#}  ","{###} "]
+        visual = [ BLANK_WHITE_SQUARE, BLANK_WHITE_SQUARE,"   (^)   ","   /#\   ","   {#}   ","  {###}  "]
         movements = []
         self.__generate_attributes('Bishop', 'b', 'black', visual, movements)
 
     def B(self):
-        visual = ["######","#_/|##","// o\#","|| ._)","//  \#",")___(#"]
+        visual = [BLANK_BLACK_SQUARE,"%%%_/|%%%","%%// o\%%","%%|| ._)%","%%//  \%%","%%)___(%%"]
         movements = []
         self.__generate_attributes('Bishop', 'B', 'white', visual, movements)
 
     def p(self):
-        visual = ["      ","      ", "      "," (#)  "," {#}  ","{###} "]
+        visual = [ BLANK_WHITE_SQUARE, BLANK_WHITE_SQUARE,  BLANK_WHITE_SQUARE,"   (#)   ","   {#}   ","  {###}  "]
         movements = []
         self.__generate_attributes('Pawn', 'p', 'black', visual, movements)
 
     def P(self):
-        visual = ["######","######","######","#( )##","#{ }##","{___}#"]
+        visual = [BLANK_BLACK_SQUARE,BLANK_BLACK_SQUARE,BLANK_BLACK_SQUARE,"%%%( )%%%","%%%{ }%%%","%%{___}%%"]
         movements = []
         self.__generate_attributes('Pawn', 'P', 'white', visual, movements)
 
     def q(self):
-        visual = [" _._  "," (#)  "," /#\  "," |#|  "," {#}  ","{###} "]
+        visual = ["   _._   ","   (#)   ","   /#\   ","   |#|   ","   {#}   ","  {###}  "]
         movements = []
         self.__generate_attributes('Pawn', 'p', 'black', visual, movements)
 
     def Q(self):
-        visual = ["#_._##","#( )##","#/ \##","#| |##","#{ }##","{___}#"]
+        visual = ["%%%_._%%%","%%%( )%%%","%%%/ \%%%","%%%| |%%%","%%%{ }%%%","%%{___}%%"]
         movements = []
         self.__generate_attributes('Pawn', 'P', 'white', visual, movements)
 
     def k(self):
-        visual = ["  +   "," (#)  "," /#\  "," |#|  "," {#}  ", "{###} "]
+        visual = ["    +    ","   (#)   ","   /#\   ","   |#|   ","   {#}   ", "  {###}  "]
         movements = []
         self.__generate_attributes('Pawn', 'p', 'black', visual, movements)
 
     def K(self):
-        visual = ["##+###","#( )##","#/ \##","#| |##","#{ }##","{___}#"]
+        visual = ["%%%%+%%%%","%%%( )%%%","%%%/ \%%%","%%%| |%%%","%%%{ }%%%","%%{___}%%"]
         movements = []
         self.__generate_attributes('Pawn', 'P', 'white', visual, movements)
         
@@ -143,16 +147,13 @@ class Piece:
 #Rank Header: +------+------...
 def rank_header():
     for i in range(8):
-        print_inline("+------")
+        print_inline("+---------")
     print('+')
 
 
 def print_square(rank, file):
-    color = sq_color(rank, file)
-    if color == "dark":
-        print_inline("|######")
-    else:
-        print_inline("|      ")
+    print_inline(BLANK_BLACK_SQUARE if sq_color(rank, file) == 'dark' else BLANK_WHITE_SQUARE)
+
 
 def print_inline(line):
     print(line, end = "")
@@ -171,9 +172,11 @@ def print_row(rank, partialFEN):
         for char in partialFEN:
             if char.isdigit():
                 for y in range(int(char)):
+                    print_inline('|')
                     print_square(rank, file)
                     file += 1
             else:
+                print_inline("|")
                 Piece(char).display(sq_color(rank, file), x)
                 file += 1
         print("|")
@@ -185,7 +188,7 @@ def print_row(rank, partialFEN):
 #create function "loadPositionFromFen"
 #FEN starting position: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
 #Remove '/' and appropriate number of blank spaces, try to handle the rest using the piece class
-fen = "r7/8/8/8/8/8/8/8/"
+fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
 def load_position_from_FEN(fen):
     rank_header()
     for idx, partialFEN in enumerate(fen.split('/')):
