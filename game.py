@@ -6,19 +6,19 @@ class Game:
         while True:
             self.__choose_color()
             self.__choose_difficulty()
-            self.play()
-            if self.wants_rematch():
+            self.__play()
+            if self.__wants_rematch():
                 continue
             else:
                 break
 
 
-    def play(self):
+    def __play(self):
         playing = True
-        color = 'white'
-        board = Board(STARTING_FEN)
+        self.board = Board(STARTING_FEN)
+        self.turn = 1
         while playing:
-            self.__take_turn(color, board)
+            self.__take_turn()
 
 
     def __choose_color(self) -> None:
@@ -34,5 +34,21 @@ class Game:
         # self.ai = AI(difficulty)
         pass
     
-    def __take_turn(self, color, board):
+    def __take_turn(self):
+        if self.player_color == self.__turn_color():
+            self.__player_turn()
+        else:
+            self.__ai_turn()
+        self.turn += 1
+
+    def __player_turn(self):
         pass
+    
+    def __ai_turn(self):
+        pass
+
+    def __turn_color(self):
+        return 'black' if self.turn % 2 == 0 else 'white'
+
+    def __wants_rematch(self) -> bool:
+        return input('Do you want a rematch? (y/n): ') == 'y'
