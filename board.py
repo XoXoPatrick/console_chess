@@ -43,5 +43,29 @@ class Board:
 
         self.__rank_header()
 
-    def update_board(piece_start: str, piece_stop: str):
+    def update_board(piece_start: str, piece_stop: str, boardFEN):
+        file = 0
+        rank = 0
+        def __get_coordinates(square: str):
+            for indx in square:
+                if indx.isalpha():
+                    if indx == 'a' or "A":
+                        file = 0
+                    elif indx == 'b' or "B":
+                        file = 1
+                    elif indx == 'c' or "C":
+                        file = 2
+                    elif indx == 'd' or "D":
+                        file = 3
+                    elif indx == 'e' or "E":
+                        file = 4
+                    elif indx == 'f' or "F":
+                        file = 5
+                    elif indx == 'g' or "G":
+                        file = 6
+                    elif indx == 'h' or "H":
+                        file = 7
+                else:
+                    rank = indx - 1
+
         pass
