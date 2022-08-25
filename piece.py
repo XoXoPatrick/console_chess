@@ -11,15 +11,6 @@ class Piece:
         except:
             print('Sorry, the piece you passed in doesn\'t exist. Got', piece)
 
-    def calculate_legal_moves(self, board):
-        legal_moves = []
-        for movement in self.movements:
-            if self.is_legal(movement, board): legal_moves.append(movement)
-        return legal_moves
-
-    def is_legal(self, movement: str, board: str) -> bool:
-        pass
-
     def display(self, sq_color: str, idx: int) -> str:
         if sq_color == 'dark' and self.color == 'black':
             print_inline(re.sub(' ', DARK_SQUARE_SYMBOL, self.visual[idx]))
@@ -31,32 +22,32 @@ class Piece:
 
     def r(self):
         visual = [BLANK_WHITE_SQUARE, BLANK_WHITE_SQUARE,"  [UUU]  ","   |#|   ","   {#}   ","  {###}  "]
-        movements = []
+        movements = [(1,0), (-1,0), (0,1), (0,-1)]
         self.__generate_attributes('Rook', 'r', 'black', visual, movements)
 
     def R(self):
         visual = [BLANK_BLACK_SQUARE,BLANK_BLACK_SQUARE,"%%[UUU]%%","%%%| |%%%","%%%{ }%%%","%%{___}%%"]
-        movements = []
+        movements = [(1,0), (-1,0), (0,1), (0,-1)]
         self.__generate_attributes('Rook', 'R', 'white', visual, movements)
 
     def n(self):
         visual = [ BLANK_WHITE_SQUARE,"   _/|   ","  //#o\  ","  ||#._) ","  //##\  ","  )###(  "]
-        movements = []
+        movements = [(2,1), (2,-1), (-2,1), (-2,-1), (1,2), (-1,2), (1,-2), (-1,-2)]
         self.__generate_attributes('Knight', 'n', 'black', visual, movements)
 
     def N(self):
         visual = [BLANK_BLACK_SQUARE,"%%%_/|%%%","%%// o\%%","%%|| ._)%","%%//  \%%","%%)___(%%"]
-        movements = []
+        movements = [(2,1), (2,-1), (-2,1), (-2,-1), (1,2), (-1,2), (1,-2), (-1,-2)]
         self.__generate_attributes('Knight', 'K', 'white', visual, movements)
 
     def b(self):
         visual = [ BLANK_WHITE_SQUARE, BLANK_WHITE_SQUARE,"   (^)   ","   /#\   ","   {#}   ","  {###}  "]
-        movements = []
+        movements = [(1,1), (-1,1), (1,-1), (-1,-1)]
         self.__generate_attributes('Bishop', 'b', 'black', visual, movements)
 
     def B(self):
         visual = [BLANK_BLACK_SQUARE,"%%%_/|%%%","%%// o\%%","%%|| ._)%","%%//  \%%","%%)___(%%"]
-        movements = []
+        movements = [(1,1), (-1,1), (1,-1), (-1,-1)]
         self.__generate_attributes('Bishop', 'B', 'white', visual, movements)
 
     def p(self):

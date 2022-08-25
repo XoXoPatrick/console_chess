@@ -43,7 +43,7 @@ class Board:
 
         self.__rank_header()
 
-    def update_board(piece_start: str, piece_stop: str, boardFEN):
+    def update_board(piece_start: str, piece_stop: str, boardFEN) -> str:
         file = 0
         rank = 0
         def __get_coordinates(square: str):

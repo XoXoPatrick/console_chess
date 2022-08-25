@@ -6,13 +6,16 @@ Things legality will check for:
 - does a piece inhabit the end location, and is that piece a friendly color
 - is the king in check
 
-Conditionally moves:
+Conditional moves:
 
 pawn double move:
 if a pawn is on the starting rank it may advance 2 spaces
 
 en passant:
 if a pawn has advanced two spaces arriving adjacent to an enemy pawn that pawn may capture diagonally behind the enemy pawn
+
+pawn capture:
+if an enemy piece is diagonally adjacent in front it can capture that piece
 
 Castling
 If neither the king, nor the rook to be castled with, have moved AND there is no piece between the two AND none of those squares is under enemy control the king will shift
@@ -21,5 +24,13 @@ If neither the king, nor the rook to be castled with, have moved AND there is no
 IF king is under check, DOES move take king OUT of check
 
 """
-def is_legal(piece_start, piece_stop, board, piece)-> bool:
+def is_legal(piece_start: str, piece_stop: str, board:str, piece)-> bool:
+    def calculate_legal_moves(self, board):
+        legal_moves = []
+        for movement in self.movements:
+            if self.is_legal(movement, board): legal_moves.append(movement)
+        return legal_moves
+        
+    def __hit_detection(piece_start, piece_stop, board):
+        pass
     pass
