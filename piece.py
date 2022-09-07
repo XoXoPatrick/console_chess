@@ -46,7 +46,7 @@ class Piece:
         self.__generate_attributes('Bishop', 'b', 'black', visual, movements)
 
     def B(self):
-        visual = [BLANK_BLACK_SQUARE,"%%%_/|%%%","%%// o\%%","%%|| ._)%","%%//  \%%","%%)___(%%"]
+        visual = [BLANK_BLACK_SQUARE,"%%%(^)%%%","%%%/ \%%%","%%%{ }%%%","%%{___}%%"]
         movements = [(1,1), (-1,1), (1,-1), (-1,-1)]
         self.__generate_attributes('Bishop', 'B', 'white', visual, movements)
 
