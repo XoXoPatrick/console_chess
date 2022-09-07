@@ -59,7 +59,8 @@ class Piece:
     def calculate_legal_moves(self):
         legal_moves = []
         for movement in self.movements:
-            if legal(movement): legal_moves.append(movement)
+            #if legal(movement): legal_moves.append(movement)#
+            pass
         return legal_moves
 
     def legal(self, movement):
